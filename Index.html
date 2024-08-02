@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Availability Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input { padding: 10px; width: 200px; }
+        button { padding: 10px 20px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Check Product Availability</h1>
+    <input type="text" id="productName" placeholder="Enter product name" />
+    <button onclick="checkProduct()">Check Availability</button>
+    <p id="result"></p>
+
+    <script>
+        async function checkProduct() {
+            const productName = document.getElementById('productName').value;
+            const response = await fetch('https://x3nesk7q0g.execute-api.eu-north-1.amazonaws.com/prod', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productName })
+            });
+            const data = await response.json();
+            document.getElementById('result').textContent = data.message;
+        }
+    </script>
+</body>
+</html>
+
